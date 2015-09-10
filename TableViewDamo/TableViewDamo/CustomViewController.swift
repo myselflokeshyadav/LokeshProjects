@@ -12,7 +12,6 @@ import UIKit
 class CustomViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    //let cellIdentifier = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +39,7 @@ extension CustomViewController:UITableViewDataSource, UITableViewDelegate{
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-        return 10;
+        return 1000;
     }
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -48,16 +47,13 @@ extension CustomViewController:UITableViewDataSource, UITableViewDelegate{
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
-//        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! CustomCell
-//        cell.lbltext?.text = "ROW:\(indexPath.row*2)"
-//        
-//        return cell;
-        
         let cellIdentifier = "cell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! CustomCell
         
         // Fetches the appropriate meal for the data source layout.
-        cell.lbltext?.text = "ROW:\(indexPath.row*2)"
+        //cell.lbltext?.text = "ROW:\(indexPath.row*2)"
+        
+        cell.lbltext?.text  = self.cellTitleSet(indexPath.row+1)
         return cell
         
     }
@@ -68,3 +64,38 @@ extension CustomViewController:UITableViewDataSource, UITableViewDelegate{
     }
     
 }
+
+//MARK: Fuction to retrun string value
+
+extension CustomViewController{
+    //func playSpecificBeepNoiseWithDelayOf(aNumber:  Int, filename: String)
+    func cellTitleSet(value: Int)-> String{
+        
+        if self.divisionByFive(value)==true && self.divisionByThree(value)==true{
+           return "OLACAB"
+        }
+        else if self.divisionByFive(value)==true{
+            return "OLA"
+        }
+        else if self.divisionByThree(value)==true{
+            return "CAB"
+        }
+        else
+        {return "\(value)"}
+        
+    }
+    
+    func divisionByThree(value: Int)-> Bool{
+        
+        return (value%3==0) ? true:false
+    }
+    
+    func divisionByFive(value: Int)-> Bool{
+        
+        return (value%5==0) ? true:false
+    }
+    
+}
+    
+
+
